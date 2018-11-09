@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class Main {
@@ -6,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
 
+        String outputDir = System.getProperty("user.home");
         ArrayList<SearchTerm> terms = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
@@ -35,6 +37,8 @@ public class Main {
                 System.out.println("Positive words file could not be processed, check file path and data format and try again.");
             }
         }
+
+        Utility.findPosSearches(posWords, terms, outputDir);
 
 
     }

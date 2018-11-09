@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -48,7 +50,7 @@ public class SearchTerm {
 
     public static SearchTerm parseLine(String line) throws NoSuchElementException {
         String term;
-        double conversions = 0.0;
+        double conversions;
         int clicks;
         Scanner s = new Scanner(line);
         s.useDelimiter(",");
