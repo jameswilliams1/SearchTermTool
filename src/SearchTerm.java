@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -69,41 +66,21 @@ public class SearchTerm {
         }
     }
 
-    public static void readSearchFile(String filepath, ArrayList<SearchTerm> terms) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader(filepath));
+    public static void readSearchFile(String filepath, ArrayList<SearchTerm> terms) throws IOException {
+        FileReader fr = new FileReader(filepath);
+        BufferedReader br = new BufferedReader(fr);
         String line = "";
-        try {
-            br.readLine();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        try {
-            while ((line = br.readLine()) != null) {
-                try {
-                    SearchTerm term = parseLine(line);
-                    terms.add(term);
-                } catch (NoSuchElementException e) {
-                    System.out.println(e);
-                    System.out.println("Row could not be parsed: " + line);
-                }
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            try {
+                SearchTerm term = parseLine(line);
+                terms.add(term);
+            } catch (NoSuchElementException e) {
+                System.out.println("Row could not be parsed: " + line);
             }
-        } catch (IOException e) {
-            System.out.println(e);
         }
+        br.close();
     }
 
-    public static void main(String[] args) {
-        System.out.println("Enter filepath for search data (one term per line with one heading row:");
-        String filepath = Utility.getUserString();
-        ArrayList<SearchTerm> terms = new ArrayList<>();
-        try {
-            readSearchFile(filepath, terms);
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-        System.out.println(terms);
-        System.out.println(terms.size());
 
-
-    }
 }
