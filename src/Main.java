@@ -10,41 +10,46 @@ public class Main {
 
 
     public static void printHelp() {
-        System.out.println("---------------------------------------------");
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------------------------------");
         System.out.println("INFORMATION:");
         System.out.println();
-        System.out.println("This program processes search term data into useful outputs. The search data should be a CSV file with one search term " +
-                "on each line and exactly one heading/title line in row 1. The correct format for the search data is:");
+        System.out.println("This program processes search term data into useful outputs. The search data should be a CSV file with one");
+        System.out.println("search term on each line and exactly one heading/title line in row 1. The correct format for the search");
+        System.out.println("data is:");
+        System.out.println();
         System.out.println("[Search Term,Clicks,Conversions]");
         System.out.println();
         System.out.println("Alternatively you can use 1 search term on each line with exactly one heading line in row 1 in the format:");
+        System.out.println();
         System.out.println("[Search term]");
         System.out.println();
-        System.out.println("This will produce output without clicks or conversions. All output is saved next to the input file in a separate folder.");
-        System.out.println("---------------------------------------------");
+        System.out.println("This will produce output without clicks or conversions. All output is saved next to the input file in a");
+        System.out.println("separate folder.");
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------------------------------");
         System.out.println("SUPPORTED COMMANDS:");
         System.out.println();
-        System.out.println("help : Display help (can be used at any time)");
+        System.out.println("help :     Display help (can be used at any time)");
         System.out.println();
-        System.out.println("keywords : Input a list of keywords to find search terms that contain them. The keywords file should be a CSV with each " +
-                "keyword in one column on the first row in the following format:");
-        System.out.println("[Keyword,Keyword,Keyword]...");
+        System.out.println("keywords : Input a list of keywords to find search terms that contain them. The keywords file should be a");
+        System.out.println("           CSV with each keyword in one column on the first row in the following format:");
         System.out.println();
-        System.out.println("split : Split each search term from the input data into multiple terms (word length of each term is set by typing a number after choosing this command)." +
-                "Appearances, clicks and conversions are then aggregated for each term and saved to a CSV in the output folder.");
-        System.out.println("---------------------------------------------");
+        System.out.println("           [Keyword,Keyword,Keyword]...");
+        System.out.println();
+        System.out.println("split :    Split each search term from the input data into multiple terms (word length of each term is set");
+        System.out.println("           by typing a number after choosing this command). Appearances, clicks and conversions are then ");
+        System.out.println("           aggregated for each term and saved to a CSV in the output folder.");
+        System.out.println("----------------------------------------------------------------------------------------------------------");
         System.out.println();
     }
 
-    public static boolean isCommand(String line) { // Finds if user input string is a valid command
-        String lowCase = line.toLowerCase();
-        boolean result = (lowCase.equals("keywords") || lowCase.equals("split")) ? true : false;
-        return result;
-    }
 
     public static boolean isHelp(String line) { // Finds if user asks for help
-        String lowCase = line.toLowerCase();
-        boolean result = (lowCase.equals("help")) ? true : false;
+        if ( line == null){
+            return false;
+        }
+        boolean result = (line.equalsIgnoreCase("help")) ? true : false;
         return result;
     }
 
@@ -59,8 +64,8 @@ public class Main {
                     break;
                 }
                 posWords = Utility.readPosWords(filepath);
-                Utility.findPosSearches(posWords, terms, outputDir);
                 System.out.println("Number of keywords entered: " + posWords.size());
+                Utility.findPosSearches(posWords, terms, outputDir);
                 break;
             } catch (IOException e) {
                 System.out.println(e);
@@ -152,6 +157,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+        System.out.println();
 
         String outputDir = "";
         ArrayList<SearchTerm> terms = new ArrayList<>();
