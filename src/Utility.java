@@ -59,7 +59,7 @@ public class Utility {
             }
             rows.add(sb.toString());
         }
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Appearances.csv"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Keyword_Appearances.csv"))) {
             for (String line : rows) {
                 bw.write(line);
                 bw.newLine();
@@ -68,5 +68,6 @@ public class Utility {
             e.printStackTrace();
         }
         System.out.println("Output saved to: " + outputDir + "/Search_Term_Appearances.csv");
+        System.out.println();
     }
 }
