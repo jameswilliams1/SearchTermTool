@@ -158,6 +158,17 @@ public class Main {
 
     public static void main(String[] args) {
 
+        System.out.println("----------------------------------------------------------------------------------------------------------");
+        System.out.println("  /$$$$$$  /$$$$$$$$  /$$$$$$        /$$$$$$$$                  /$$          ");
+        System.out.println(" /$$__  $$| $$_____/ /$$__  $$      |__  $$__/                 | $$          ");
+        System.out.println("| $$  \\__/| $$      | $$  \\ $$         | $$  /$$$$$$   /$$$$$$ | $$  /$$$$$$$");
+        System.out.println("|  $$$$$$ | $$$$$   | $$  | $$         | $$ /$$__  $$ /$$__  $$| $$ /$$_____/");
+        System.out.println("\\____   $$| $$__/   | $$  | $$         | $$| $$  \\ $$| $$  \\ $$| $$|  $$$$$$ ");
+        System.out.println("/$$  \\  $$| $$      | $$  | $$         | $$| $$  | $$| $$  | $$| $$ \\____  $$");
+        System.out.println("|  $$$$$$/| $$$$$$$$|  $$$$$$/         | $$|  $$$$$$/|  $$$$$$/| $$ /$$$$$$$/");
+        System.out.println(" \\______/ |________/ \\______/          |__/ \\______/  \\______/ |__/|_______/    ");
+        System.out.println();
+        System.out.println("By Ayman Hasan");
         System.out.println();
 
         String outputDir = "";
