@@ -67,6 +67,6 @@ public class Utility {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Output saved to: " + outputDir + "/output.csv");
+        System.out.println("Output saved to: " + outputDir + "/Search_Term_Appearances.csv");
     }
 }

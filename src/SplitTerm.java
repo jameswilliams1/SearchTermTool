@@ -127,6 +127,7 @@ public class SplitTerm {
                 }
                 bw.newLine();
             }
+            System.out.println("Output saved to: " + outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }

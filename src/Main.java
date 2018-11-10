@@ -8,6 +8,23 @@ import java.util.ArrayList;
 
 public class Main {
 
+    public static void findPosWords(BufferedReader br, ArrayList<SearchTerm> terms, String outputDir) {
+        ArrayList<String> posWords;
+        while (true) {
+            try {
+                System.out.println("Enter filepath to positive words (one word in each column on first row):");
+                String filepath = br.readLine();
+                posWords = Utility.readPosWords(filepath);
+                System.out.println("Number of positive words input: " + posWords.size());
+                break;
+            } catch (IOException e) {
+                System.out.println(e);
+                System.out.println("Positive words file could not be processed, check file path and data format and try again.");
+            }
+        }
+        Utility.findPosSearches(posWords, terms, outputDir);
+    }
+
     public static void main(String[] args) {
 
         String outputDir;
@@ -16,7 +33,7 @@ public class Main {
         String fileName;
         String inputDir;
 
-        while (true) {
+        while (true) { // Set main data location and process
             try {
                 System.out.println("Enter filepath to search data (must have one search per row with one heading row):");
                 String filepath = br.readLine();
@@ -35,23 +52,8 @@ public class Main {
         outputDir = inputDir + "/" + fileNameNoEx + "_Output";
         File dir = new File(outputDir);
         dir.mkdir();
+        findPosWords(br, terms, outputDir);
 
-        ArrayList<String> posWords;
-        while (true) {
-            try {
-                System.out.println("Enter filepath to positive words (one word in each column on first row):");
-                String filepath = br.readLine();
-                posWords = Utility.readPosWords(filepath);
-                System.out.println("Number of positive words input: " + posWords.size());
-                break;
-            } catch (IOException e) {
-                System.out.println(e);
-                System.out.println("Positive words file could not be processed, check file path and data format and try again.");
-            }
-        }
-        Utility.findPosSearches(posWords, terms, outputDir);
-        ArrayList<SplitTerm> splitTerms = SplitTerm.splitTermList(terms, 2);
-        SplitTerm.writeFile(splitTerms, outputDir, 2);
 
 
     }
