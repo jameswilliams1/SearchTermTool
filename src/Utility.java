@@ -1,6 +1,6 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+        import java.util.ArrayList;
+        import java.util.Scanner;
 
 public class Utility {
 
@@ -49,24 +49,22 @@ public class Utility {
         }
         for (int i = 0; i < maxLength; i++) {
             StringBuilder sb = new StringBuilder();
-            for (ArrayList<String> col: columns){
-                if (col.size() > i){
+            for (ArrayList<String> col : columns) {
+                if (col.size() > i) {
                     sb.append(col.get(i));
                     sb.append(",");
-                }
-                else{
+                } else {
                     sb.append(",");
                 }
             }
             rows.add(sb.toString());
         }
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/output.csv"))){
-            for(String line: rows){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Appearances.csv"))) {
+            for (String line : rows) {
                 bw.write(line);
                 bw.newLine();
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Output saved to: " + outputDir + "/output.csv");

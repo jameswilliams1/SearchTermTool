@@ -1,5 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class SplitTerm {
@@ -70,10 +72,10 @@ public class SplitTerm {
                 output.add(new SplitTerm(xLenTerm));
             }
         }
-        for(SplitTerm spTerm: output){
-            for(SearchTerm st: searchTerms){
-                if(st.getTerm().contains(spTerm.getTerm())){ // If search term has split term inside it
-                    spTerm.count +=1;
+        for (SplitTerm spTerm : output) {
+            for (SearchTerm st : searchTerms) {
+                if (st.getTerm().contains(spTerm.getTerm())) { // If search term has split term inside it
+                    spTerm.count += 1;
                     spTerm.clicks += st.getClicks();
                     spTerm.conversions += st.getConversions();
                 }
@@ -83,7 +85,7 @@ public class SplitTerm {
     }
 
     // Splits an ArrayList into sub lists of length L
-    public static <E> ArrayList<ArrayList<E>> splitList(ArrayList<E> list, final int L) {
+    private static <E> ArrayList<ArrayList<E>> splitList(ArrayList<E> list, final int L) {
         ArrayList<ArrayList<E>> parts = new ArrayList<>();
         final int N = list.size();
         for (int i = 0; i < N; i += L) {
@@ -95,12 +97,38 @@ public class SplitTerm {
     // Returns a string of each item in ArrayList (of strings) with space between each
     private static String listToString(ArrayList<String> al) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i<al.size(); i++){
+        for (int i = 0; i < al.size(); i++) {
             sb.append(al.get(i));
-            if(i < al.size()-1){
+            if (i < al.size() - 1) {
                 sb.append(" ");
             }
         }
         return sb.toString();
+    }
+
+    public static void writeFile(ArrayList<SplitTerm> terms, String outputDir, int xValue) {
+        boolean dataSet = true; //Ensures negative (unset) data doesn't get printed
+        if (terms.get(0).getClicks() < 0) {
+            dataSet = false;
+        }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Data.csv"))) {
+            if (dataSet) {
+                bw.write("Word,Appearances,Clicks,Conversion");
+            } else {
+                bw.write("Word,Appearances");
+            }
+            bw.newLine();
+            for (SplitTerm st : terms) {
+                if (dataSet) {
+                    bw.write(st.getTerm() + st.getCount() + st.getClicks() + st.getConversions());
+
+                } else {
+                    bw.write(st.getTerm() + st.getCount());
+                }
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

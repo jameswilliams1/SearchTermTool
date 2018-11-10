@@ -60,7 +60,6 @@ public class SearchTerm {
             String num = s.findInLine("\"([^\"]*)\"");
             num = num.replaceAll("\"", "");
             num = num.replaceAll(",", ".");
-            System.out.println(num);
             conversions = Double.parseDouble(num);
             return new SearchTerm(term, clicks, conversions);
         } else {
@@ -83,6 +82,4 @@ public class SearchTerm {
         }
         br.close();
     }
-
-
 }

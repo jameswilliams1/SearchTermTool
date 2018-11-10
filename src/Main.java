@@ -1,15 +1,16 @@
-import java.io.*;
-import java.net.URLDecoder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-
-        String outputDir = System.getProperty("user.home");
+        String outputDir = System.getProperty("user.home" + "/Downloads");
         ArrayList<SearchTerm> terms = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         while (true) {
             try {
                 System.out.println("Enter filepath to search data (must have one search per row with one heading row):");
@@ -22,7 +23,6 @@ public class Main {
                 System.out.println("Search data could not be processed, check file path and data format and try again.");
             }
         }
-
 
         ArrayList<String> posWords;
         while (true) {
@@ -39,10 +39,11 @@ public class Main {
         }
 
         Utility.findPosSearches(posWords, terms, outputDir);
+        ArrayList<SplitTerm> splitTerms = SplitTerm.splitTermList(terms, 2);
+        for (SplitTerm st : splitTerms) {
+            System.out.println(st);
+        }
 
 
     }
-
-
 }
-
