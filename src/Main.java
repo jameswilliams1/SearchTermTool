@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String outputDir = System.getProperty("user.home" + "/Downloads");
+        String outputDir = System.getProperty("user.home");
         ArrayList<SearchTerm> terms = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -40,9 +40,8 @@ public class Main {
 
         Utility.findPosSearches(posWords, terms, outputDir);
         ArrayList<SplitTerm> splitTerms = SplitTerm.splitTermList(terms, 2);
-        for (SplitTerm st : splitTerms) {
-            System.out.println(st);
-        }
+        SplitTerm.writeFile(splitTerms, outputDir, 2);
+
 
 
     }

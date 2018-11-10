@@ -120,10 +120,10 @@ public class SplitTerm {
             bw.newLine();
             for (SplitTerm st : terms) {
                 if (dataSet) {
-                    bw.write(st.getTerm() + st.getCount() + st.getClicks() + st.getConversions());
+                    bw.write(st.getTerm() + "," + st.getCount() + "," + st.getClicks() + "," + st.getConversions());
 
                 } else {
-                    bw.write(st.getTerm() + st.getCount());
+                    bw.write(st.getTerm() + "," + st.getCount());
                 }
                 bw.newLine();
             }
