@@ -1,15 +1,20 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String outputDir = System.getProperty("user.home");
+        String outputDir;
         ArrayList<SearchTerm> terms = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String fileName;
+        String inputDir;
 
         while (true) {
             try {
@@ -17,12 +22,19 @@ public class Main {
                 String filepath = br.readLine();
                 SearchTerm.readSearchFile(filepath, terms);
                 System.out.println("Number of search terms input: " + terms.size());
+                Path p = Paths.get(filepath);
+                inputDir = p.getParent().toString();
+                fileName = p.getFileName().toString();
                 break;
             } catch (IOException e) {
                 System.out.println(e);
                 System.out.println("Search data could not be processed, check file path and data format and try again.");
             }
         }
+        String fileNameNoEx = fileName.substring(0, fileName.indexOf("."));
+        outputDir = inputDir + "/" + fileNameNoEx + "_Output";
+        File dir = new File(outputDir);
+        dir.mkdir();
 
         ArrayList<String> posWords;
         while (true) {
@@ -37,11 +49,9 @@ public class Main {
                 System.out.println("Positive words file could not be processed, check file path and data format and try again.");
             }
         }
-
         Utility.findPosSearches(posWords, terms, outputDir);
         ArrayList<SplitTerm> splitTerms = SplitTerm.splitTermList(terms, 2);
         SplitTerm.writeFile(splitTerms, outputDir, 2);
-
 
 
     }

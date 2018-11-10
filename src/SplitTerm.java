@@ -111,7 +111,7 @@ public class SplitTerm {
         if (terms.get(0).getClicks() < 0) {
             dataSet = false;
         }
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Data.csv"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words.csv"))) {
             if (dataSet) {
                 bw.write("Word,Appearances,Clicks,Conversion");
             } else {
@@ -120,8 +120,8 @@ public class SplitTerm {
             bw.newLine();
             for (SplitTerm st : terms) {
                 if (dataSet) {
-                    bw.write(st.getTerm() + "," + st.getCount() + "," + st.getClicks() + "," + st.getConversions());
-
+                    String conversions = Double.toString(st.getConversions()).replaceAll("\\.", ",");
+                    bw.write(st.getTerm() + "," + st.getCount() + "," + st.getClicks() + "," + "\"" + conversions + "\"");
                 } else {
                     bw.write(st.getTerm() + "," + st.getCount());
                 }
