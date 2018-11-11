@@ -46,6 +46,7 @@ public class SearchTerm {
                 '}';
     }
 
+
     //</editor-fold>
 
     private static SearchTerm parseLine(String line) throws NoSuchElementException {
@@ -63,8 +64,7 @@ public class SearchTerm {
                 num = num.replaceAll("\"", "");
                 num = num.replaceAll(",", ".");
                 conversions = Double.parseDouble(num);
-            }
-            else{
+            } else {
                 conversions = s.nextDouble();
             }
 

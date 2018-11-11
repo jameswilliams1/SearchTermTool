@@ -3,12 +3,9 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
-public class SplitTerm {
+public class SplitTerm implements Comparable<SplitTerm> {
 
     //<editor-fold desc="base">
     private final String term;
@@ -42,6 +39,11 @@ public class SplitTerm {
                 '}';
     }
 
+    @Override
+    public int compareTo(SplitTerm o) {
+        return Double.compare(this.getClicks(), o.getClicks());
+    }
+
     public SplitTerm(String term) {
         this.term = term;
         this.count = 0;
@@ -51,7 +53,8 @@ public class SplitTerm {
     //</editor-fold>
 
     /**
-     * Takes ArrayList of Search terms and int Xvalue, returns ArrayList of SplitTerm objects where each SplitTerm has xValue words
+     * Takes ArrayList of Search terms and int Xvalue, returns ArrayList of SplitTerm objects (sorted by highest clicks)
+     * where each SplitTerm has xValue words
      *
      * @param searchTerms
      * @param xValue
@@ -88,6 +91,10 @@ public class SplitTerm {
                     spTerm.conversions += st.getConversions();
                 }
             }
+        }
+        boolean dataSet = (output.get(0).getClicks() > 0) ? true:false; // Checks if data negative (= not set)
+        if (dataSet) {
+            Collections.sort(output, Collections.reverseOrder());
         }
         return output;
     }
