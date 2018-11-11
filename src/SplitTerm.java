@@ -1,8 +1,12 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class SplitTerm {
 
@@ -55,6 +59,7 @@ public class SplitTerm {
      */
     public static ArrayList<SplitTerm> splitTermList(ArrayList<SearchTerm> searchTerms, int xValue) {
         ArrayList<SplitTerm> output = new ArrayList<>();
+        Set<String> noDups = new HashSet<String>();
         for (SearchTerm st : searchTerms) {
             String searchTerm = st.getTerm();
             Scanner s = new Scanner(searchTerm);
@@ -69,8 +74,11 @@ public class SplitTerm {
             }
             for (ArrayList<String> listSizeX : splitTerms) {
                 String xLenTerm = listToString(listSizeX);
-                output.add(new SplitTerm(xLenTerm));
+                noDups.add(xLenTerm);
             }
+        }
+        for (String xLenTerm : noDups) {
+            output.add(new SplitTerm(xLenTerm));
         }
         for (SplitTerm spTerm : output) {
             for (SearchTerm st : searchTerms) {
@@ -111,9 +119,14 @@ public class SplitTerm {
         if (terms.get(0).getClicks() < 0) {
             dataSet = false;
         }
+        BufferedWriter bwZero = null;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words.csv"))) {
+
             if (dataSet) {
+                bwZero = new BufferedWriter(new FileWriter(outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words_0_Conversions.csv"));
                 bw.write("Word,Appearances,Clicks,Conversion");
+                bwZero.write("Word,Appearances,Clicks,Conversion");
+                bwZero.newLine();
             } else {
                 bw.write("Word,Appearances");
             }
@@ -122,15 +135,30 @@ public class SplitTerm {
                 if (dataSet) {
                     String conversions = Double.toString(st.getConversions()).replaceAll("\\.", ",");
                     bw.write(st.getTerm() + "," + st.getCount() + "," + st.getClicks() + "," + "\"" + conversions + "\"");
+                    if (st.getConversions() == 0) {
+                        bwZero.write(st.getTerm() + "," + st.getCount() + "," + st.getClicks() + "," + "\"" + conversions + "\"");
+                        bwZero.newLine();
+                    }
                 } else {
                     bw.write(st.getTerm() + "," + st.getCount());
                 }
                 bw.newLine();
             }
-            System.out.println("Output saved to: " + outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words.csv");
+            System.out.println("Full output saved to: " + outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words.csv");
+            if (dataSet) {
+                System.out.println("Filtered output saved to: " + outputDir + "/Search_Term_Data_" + Integer.toString(xValue) + "_Words_0_Conversions.csv");
+            }
             System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        finally {
+            try{
+                bwZero.close();
+            }
+            catch (IOException | NullPointerException e){
+
+            }
         }
     }
 }

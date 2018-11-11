@@ -1,10 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SearchTermTool:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/SearchTermTool_jar</output-path>
+    <output-path>$USER_HOME$/Downloads/build/jar</output-path>
     <root id="archive" name="SearchTermTool.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$USER_HOME$/Downloads/META-INF/MANIFEST.MF" />
-      </element>
       <element id="module-output" name="SearchTermTool" />
     </root>
   </artifact>
