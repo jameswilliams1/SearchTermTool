@@ -48,21 +48,30 @@ public class SearchTerm {
 
     //</editor-fold>
 
-    public static SearchTerm parseLine(String line) throws NoSuchElementException {
+    private static SearchTerm parseLine(String line) throws NoSuchElementException {
         String term;
         double conversions;
         int clicks;
         Scanner s = new Scanner(line);
         s.useDelimiter(",");
-        term = s.next();
+        term = s.next().toLowerCase();
         if (s.hasNext()) {
             clicks = s.nextInt();
-            String num = s.findInLine("\"([^\"]*)\"");
-            num = num.replaceAll("\"", "");
-            num = num.replaceAll(",", ".");
-            conversions = Double.parseDouble(num);
+            String num;
+            num = s.findInLine("\"([^\"]*)\"");
+            if (num != null) {
+                num = num.replaceAll("\"", "");
+                num = num.replaceAll(",", ".");
+                conversions = Double.parseDouble(num);
+            }
+            else{
+                conversions = s.nextDouble();
+            }
+
+            s.close();
             return new SearchTerm(term, clicks, conversions);
         } else {
+            s.close();
             return new SearchTerm(term);
         }
     }

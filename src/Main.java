@@ -169,6 +169,7 @@ public class Main {
         System.out.println(" \\______/ |________/ \\______/          |__/ \\______/  \\______/ |__/|_______/    ");
         System.out.println();
         System.out.println("By Ayman Hasan");
+        System.out.println("----------------------------------------------------------------------------------------------------------");
         System.out.println();
 
         String outputDir = "";

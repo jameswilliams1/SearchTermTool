@@ -10,7 +10,7 @@ public class Utility {
         s.useDelimiter(",");
         ArrayList<String> words = new ArrayList<>();
         while (s.hasNext()) {
-            words.add(s.next());
+            words.add(s.next().toLowerCase());
         }
         s.close();
         return words;
